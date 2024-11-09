@@ -22,7 +22,7 @@ export const useFormStore = defineStore('form', {
     telephone: '',
     email: '',
     socialSecurityNumber: '',
-    dateOfBirth: '2023-01-01',
+    dateOfBirth: '',
     identityCardNumber: '',
     address: '',
     bankAccountNumber: '',

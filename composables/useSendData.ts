@@ -22,15 +22,11 @@ export function useSendData() {
         throw new Error(`Failed to send data: ${response.statusText}`);
       }
 
-      // Get the response JSON
       const json = await response.json();
+
       console.log('Response Data:', json);
 
-      // Redirect to summary page and pass submitted data
       router.push({ path: '/summary', query: { data: JSON.stringify(json) } });
-
-      // Clear form data
-      formStore.clear();
     } catch (error) {
       console.error('Error sending data:', error);
     }

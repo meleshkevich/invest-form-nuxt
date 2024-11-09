@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onBeforeMount } from 'vue';
 import { useRoute } from 'vue-router';
+import { useFormStore } from '@/stores/useFormStore';
 
 interface FormData {
   investmentAmount?: number;
@@ -16,8 +17,9 @@ interface FormData {
   consent?: boolean;
 }
 
-// Use `FormData` type for better structure.
 const data = ref<FormData>({});
+const formStore = useFormStore();
+const router = useRouter();
 
 onBeforeMount(() => {
   const route = useRoute();
@@ -30,6 +32,11 @@ onBeforeMount(() => {
     }
   }
 });
+
+function handleClick() {
+  router.back();
+  formStore.clear();
+}
 </script>
 
 <template>
@@ -57,6 +64,10 @@ onBeforeMount(() => {
                 <div>{{ data.surname }}</div>
               </v-col>
               <v-col cols="12" md="8">
+                <strong>Datum narození:</strong>
+                <div>{{ data.dateOfBirth }}</div>
+              </v-col>
+              <v-col cols="12" md="8">
                 <strong>Telefonní číslo:</strong>
                 <div>{{ data.telephone }}</div>
               </v-col>
@@ -68,10 +79,7 @@ onBeforeMount(() => {
                 <strong>Rodné číslo:</strong>
                 <div>{{ data.socialSecurityNumber }}</div>
               </v-col>
-              <v-col cols="12" md="8">
-                <strong>Datum narození:</strong>
-                <div>{{ data.dateOfBirth }}</div>
-              </v-col>
+
               <v-col cols="12" md="8">
                 <strong>Číslo občanského průkazu:</strong>
                 <div>{{ data.identityCardNumber }}</div>
@@ -90,7 +98,7 @@ onBeforeMount(() => {
               </v-col>
             </v-row>
             <v-btn
-              @click="$router.back()"
+              @click="handleClick"
               color="primary"
               class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
             >
