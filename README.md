@@ -15,5 +15,3 @@ clone branch main with `$ git clone https://github.com/meleshkevich/invest-form-
 `cd invest-form-nuxt`
 `npm install`
 `npm run dev`
-
-Alternatively app is [deployed with Netlify](https://invest-form-nuxt.netlify.app);
