@@ -1,76 +1,19 @@
-# Nuxt Minimal Starter
+### Invest Form
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+This is test project to display invest form questionnaire
 
-## Setup
+Project sends data to 'https://jsonplaceholder.typicode.com/posts' and is created with
 
-Make sure to install dependencies:
+- Nuxt
+- Vite
+- Vuetify
+- Pinia
 
-```bash
-# npm
-npm install
+To run this project locally:
 
-# pnpm
-pnpm install
+clone branch main with `$ git clone https://github.com/meleshkevich/invest-form-nuxt` or fork it and then clone it from your forked repo
+`cd invest-form-nuxt`
+`npm install`
+`npm run dev`
 
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
-# invest-form-nuxt
+Alternatively app is [deployed with Netlify](https://invest-form-nuxt.netlify.app);
