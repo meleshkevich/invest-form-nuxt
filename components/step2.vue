@@ -22,7 +22,8 @@ function clearStep(): void {
 
 const rules = {
   telephone: (value: string): true | string =>
-    /^\+\d{11,14}$/.test(value) || 'Neplatný formát. Použijte +123123456789',
+    /^\+\d{3} \d{3} \d{3} \d{3}$/.test(value) ||
+    'Neplatný formát. Použijte +123 123 456 789.',
   email: (value: string): true | string =>
     /.+@.+\..+/.test(value) || 'Neplatná e-mailová adresa.',
   ssn: (value: string): true | string =>
@@ -37,6 +38,8 @@ const rules = {
     <v-text-field
       v-model="formStore.telephone"
       label="Telefonní číslo"
+      v-mask="'+### ### ### ###'"
+      placeholder="+420 123 456 789"
       :rules="[rules.telephone]"
     ></v-text-field>
     <v-text-field
@@ -47,11 +50,15 @@ const rules = {
     <v-text-field
       v-model="formStore.socialSecurityNumber"
       label="Rodné číslo"
+      v-mask="'######/####'"
+      placeholder="123456/1234"
       :rules="[rules.ssn]"
     ></v-text-field>
     <v-text-field
       v-model="formStore.identityCardNumber"
       label="Číslo občanského průkazu"
+      v-mask="'#########'"
+      placeholder="123456789"
       :rules="[rules.identityCard]"
     ></v-text-field>
 

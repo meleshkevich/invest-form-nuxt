@@ -97,13 +97,15 @@ function handleClick() {
                 <div>{{ data.consent ? 'Ano' : 'Ne' }}</div>
               </v-col>
             </v-row>
-            <v-btn
-              @click="handleClick"
-              color="primary"
-              class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-            >
-              OK, jdeme na hlávní stránku
-            </v-btn>
+            <div class="flex justify-center items-center mb-4">
+              <v-btn
+                @click="handleClick"
+                color="primary"
+                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+              >
+                OK, jdeme na hlávní stránku
+              </v-btn>
+            </div>
           </v-card>
         </div>
       </v-container>

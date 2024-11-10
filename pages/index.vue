@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import Step1 from '@/components/Step1.vue';
-import Step2 from '@/components/Step2.vue';
-import Step3 from '@/components/Step3.vue';
+import step1 from '@/components/step1.vue';
+import step2 from '@/components/step2.vue';
+import step3 from '@/components/step3.vue';
 
-const steps = [Step1, Step2, Step3] as const; // Use 'as const' to preserve array element types.
+const steps = [step1, step2, step3] as const;
 const currentStep = ref<number>(0);
 const currentStepComponent = computed(() => steps[currentStep.value]);
 
@@ -14,11 +14,6 @@ function goNext(): void {
 
 function goBack(): void {
   if (currentStep.value > 0) currentStep.value--;
-}
-
-function clearForm(): void {
-  // Placeholder for clear form logic. Implement as necessary.
-  console.log('Clear form logic here.');
 }
 </script>
 
@@ -35,13 +30,12 @@ function clearForm(): void {
           <h3
             class="text-xl md:text-2xl font-semibold text-center text-gray-700 mb-4"
           >
-            Step {{ currentStep + 1 }} z 3
+            Krok {{ currentStep + 1 }} z 3
           </h3>
           <component
             :is="currentStepComponent"
             :goNext="goNext"
             :goBack="goBack"
-            :clearForm="clearForm"
           />
         </div>
       </v-container>

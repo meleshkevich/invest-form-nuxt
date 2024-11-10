@@ -63,6 +63,8 @@ const rules = {
     <v-text-field
       v-model="formStore.dateOfBirth"
       label="Datum narození"
+      v-mask="'##.##.####'"
+      placeholder="DD.MM.RRRR"
       :rules="[rules.dateOfBirth]"
     ></v-text-field>
 

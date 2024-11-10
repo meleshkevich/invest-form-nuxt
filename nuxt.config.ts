@@ -2,7 +2,7 @@
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify';
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   typescript: {
     strict: true,
   },
@@ -25,6 +25,7 @@ export default defineNuxtConfig({
     },
     '@pinia/nuxt',
   ],
+  plugins: ['~/plugins/vue-the-mask.js'],
   vite: {
     vue: {
       template: {

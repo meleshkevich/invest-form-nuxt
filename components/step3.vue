@@ -18,9 +18,9 @@ function clearStep() {
 }
 const rules = {
   required: (value: boolean) => !!value || 'Toto pole je povinné.',
-  iban: (value: number) =>
-    /^[A-Z]{2}\d{2}[A-Z0-9]{1,30}$/.test(value) ||
-    'Neplatný formát IBAN. Použijte CZ1234',
+  iban: (value: string): true | string =>
+    /^[A-Z]{2}\d{2} \d{4} \d{4} \d{4} \d{4} \d{4}$/.test(value) ||
+    'Neplatný formát IBAN. Použijte CZ12 0800 0000 0000 0000 0000',
 };
 </script>
 <template>
@@ -33,6 +33,8 @@ const rules = {
     <v-text-field
       v-model="formStore.bankAccountNumber"
       label="Číslo bankovního účtu"
+      v-mask="'AA## #### #### #### #### ####'"
+      placeholder="CZ12 0800 0000 0000 0000 0000"
       :rules="[rules.iban]"
     ></v-text-field>
     <v-checkbox

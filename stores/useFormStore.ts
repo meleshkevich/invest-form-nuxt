@@ -44,7 +44,7 @@ export const useFormStore = defineStore('form', {
           return value;
         })();
 
-        this[fieldName] = defaultValue as FormState[typeof fieldName];
+        (this as Record<keyof FormState, any>)[fieldName] = defaultValue;
       });
     },
   },
