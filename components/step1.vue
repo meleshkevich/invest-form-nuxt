@@ -1,3 +1,44 @@
+<script setup lang="ts">
+import { ref } from 'vue';
+import { useFormStore } from '@/stores/useFormStore';
+import { defineProps } from 'vue';
+
+const props = defineProps<{
+  goNext: () => void;
+}>();
+
+const formStore = useFormStore();
+const isFormValid = ref<boolean>(false);
+
+function clearStep(): void {
+  formStore.resetFields(['investmentAmount', 'name', 'surname', 'dateOfBirth']);
+}
+
+const rules = {
+  name: (value: string): true | string =>
+    /^[A-Za-z]+$/.test(value) || 'Povolena jsou pouze písmena.',
+  dateOfBirth: (value: string): true | string => {
+    const datePattern =
+      /^(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.(19|20)\d{2}$/;
+    if (!datePattern.test(value)) {
+      return 'Datum musí být ve formátu DD.MM.YYYY.';
+    }
+
+    const [day, month, year] = value.split('.').map(Number);
+    const date = new Date(year, month - 1, day);
+
+    if (
+      date.getFullYear() !== year ||
+      date.getMonth() !== month - 1 ||
+      date.getDate() !== day
+    ) {
+      return 'Neplatné datum.';
+    }
+
+    return true;
+  },
+};
+</script>
 <template>
   <v-form v-model="isFormValid" class="space-y-4">
     <v-slider
@@ -19,41 +60,11 @@
       :rules="[rules.name]"
     ></v-text-field>
 
-    <!-- Date of Birth Date Picker -->
-    <div>
-      <div class="mb-6">
-        Active picker: <code>{{ activePicker || 'null' }}</code>
-      </div>
-      <v-menu
-        ref="menu"
-        v-model="menu"
-        :close-on-content-click="false"
-        transition="scale-transition"
-        min-width="auto"
-      >
-        <template v-slot:activator="{ on, attrs }">
-          <v-text-field
-            v-model="date"
-            label="Birthday date"
-            prepend-icon="mdi-calendar"
-            readonly
-            v-bind="attrs"
-            v-on="on"
-          ></v-text-field>
-        </template>
-        <v-date-picker
-          v-model="date"
-          :active-picker.sync="activePicker"
-          :max="
-            new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-              .toISOString()
-              .substring(0, 10)
-          "
-          min="1950-01-01"
-          @change="save"
-        ></v-date-picker>
-      </v-menu>
-    </div>
+    <v-text-field
+      v-model="formStore.dateOfBirth"
+      label="Datum narození"
+      :rules="[rules.dateOfBirth]"
+    ></v-text-field>
 
     <div class="flex justify-between">
       <v-btn @click="clearStep" color="secondary">Vymazat</v-btn>
@@ -63,48 +74,3 @@
     </div>
   </v-form>
 </template>
-
-<script setup lang="ts">
-import { ref, watch } from 'vue';
-import { useFormStore } from '@/stores/useFormStore';
-import { defineProps } from 'vue';
-
-const props = defineProps<{
-  goNext: () => void;
-}>();
-
-// Form store and validation setup
-const formStore = useFormStore();
-const isFormValid = ref<boolean>(false);
-const date = ref<string | null>(null);
-const activePicker = ref<string | null>(null);
-const menu = ref<boolean>(false);
-
-// Watcher for menu state to trigger the active picker when menu is opened
-watch(menu, (val) => {
-  if (val) {
-    setTimeout(() => {
-      activePicker.value = 'YEAR';
-    });
-  }
-});
-
-// Method to save the selected date
-function save(date: string): void {
-  menu.value && (menu.value = false); // Close the menu after saving
-  formStore.dateOfBirth = date; // Optionally store date in form store
-}
-
-// Reset fields
-function clearStep(): void {
-  formStore.resetFields(['investmentAmount', 'name', 'surname', 'dateOfBirth']);
-}
-
-// Validation rules
-const rules = {
-  name: (value: string): true | string =>
-    /^[A-Za-z]+$/.test(value) || 'Povolena jsou pouze písmena.',
-  dateOfBirth: (value: string): true | string =>
-    !!value || 'Datum narození je povinné.',
-};
-</script>

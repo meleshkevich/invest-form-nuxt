@@ -1,3 +1,28 @@
+<script setup lang="ts">
+import { ref } from 'vue';
+import { useFormStore } from '@/stores/useFormStore';
+import { useSendData } from '@/composables/useSendData';
+
+const { sendData } = useSendData();
+const formStore = useFormStore();
+const isFormValid = ref(false);
+const props = defineProps({
+  goNext: Function,
+  goBack: Function,
+});
+function sendDataToForm() {
+  sendData();
+}
+function clearStep() {
+  formStore.resetFields(['address', 'bankAccountNumber', 'consent']);
+}
+const rules = {
+  required: (value: boolean) => !!value || 'Toto pole je povinné.',
+  iban: (value: number) =>
+    /^[A-Z]{2}\d{2}[A-Z0-9]{1,30}$/.test(value) ||
+    'Neplatný formát IBAN. Použijte CZ1234',
+};
+</script>
 <template>
   <v-form v-model="isFormValid" class="space-y-4">
     <v-textarea
@@ -25,29 +50,3 @@
     </div>
   </v-form>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue';
-import { useFormStore } from '@/stores/useFormStore';
-import { useSendData } from '@/composables/useSendData';
-
-const { sendData } = useSendData();
-const formStore = useFormStore();
-const isFormValid = ref(false);
-const props = defineProps({
-  goNext: Function,
-  goBack: Function,
-});
-function sendDataToForm() {
-  sendData();
-}
-function clearStep() {
-  formStore.resetFields(['address', 'bankAccountNumber', 'consent']);
-}
-const rules = {
-  required: (value: boolean) => !!value || 'Toto pole je povinné.',
-  iban: (value: number) =>
-    /^[A-Z]{2}\d{2}[A-Z0-9]{1,30}$/.test(value) ||
-    'Neplatný formát IBAN. Použijte CZ1234',
-};
-</script>
