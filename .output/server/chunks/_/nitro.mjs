@@ -153,8 +153,6 @@ function stringifyQuery(query) {
 const PROTOCOL_STRICT_REGEX = /^[\s\w\0+.-]{2,}:([/\\]{1,2})/;
 const PROTOCOL_REGEX = /^[\s\w\0+.-]{2,}:([/\\]{2})?/;
 const PROTOCOL_RELATIVE_REGEX = /^([/\\]\s*){2,}[^/\\]/;
-const PROTOCOL_SCRIPT_RE = /^[\s\0]*(blob|data|javascript|vbscript):$/i;
-const TRAILING_SLASH_RE = /\/$|\/\?|\/#/;
 const JOIN_LEADING_SLASH_RE = /^\.?\//;
 function hasProtocol(inputString, opts = {}) {
   if (typeof opts === "boolean") {
@@ -165,52 +163,20 @@ function hasProtocol(inputString, opts = {}) {
   }
   return PROTOCOL_REGEX.test(inputString) || (opts.acceptRelative ? PROTOCOL_RELATIVE_REGEX.test(inputString) : false);
 }
-function isScriptProtocol(protocol) {
-  return !!protocol && PROTOCOL_SCRIPT_RE.test(protocol);
-}
 function hasTrailingSlash(input = "", respectQueryAndFragment) {
-  if (!respectQueryAndFragment) {
+  {
     return input.endsWith("/");
   }
-  return TRAILING_SLASH_RE.test(input);
 }
 function withoutTrailingSlash(input = "", respectQueryAndFragment) {
-  if (!respectQueryAndFragment) {
+  {
     return (hasTrailingSlash(input) ? input.slice(0, -1) : input) || "/";
   }
-  if (!hasTrailingSlash(input, true)) {
-    return input || "/";
-  }
-  let path = input;
-  let fragment = "";
-  const fragmentIndex = input.indexOf("#");
-  if (fragmentIndex >= 0) {
-    path = input.slice(0, fragmentIndex);
-    fragment = input.slice(fragmentIndex);
-  }
-  const [s0, ...s] = path.split("?");
-  const cleanPath = s0.endsWith("/") ? s0.slice(0, -1) : s0;
-  return (cleanPath || "/") + (s.length > 0 ? `?${s.join("?")}` : "") + fragment;
 }
 function withTrailingSlash(input = "", respectQueryAndFragment) {
-  if (!respectQueryAndFragment) {
+  {
     return input.endsWith("/") ? input : input + "/";
   }
-  if (hasTrailingSlash(input, true)) {
-    return input || "/";
-  }
-  let path = input;
-  let fragment = "";
-  const fragmentIndex = input.indexOf("#");
-  if (fragmentIndex >= 0) {
-    path = input.slice(0, fragmentIndex);
-    fragment = input.slice(fragmentIndex);
-    if (!path) {
-      return fragment;
-    }
-  }
-  const [s0, ...s] = path.split("?");
-  return s0 + "/" + (s.length > 0 ? `?${s.join("?")}` : "") + fragment;
 }
 function hasLeadingSlash(input = "") {
   return input.startsWith("/");
@@ -3723,8 +3689,7 @@ function createNodeFetch() {
 const fetch = globalThis.fetch ? (...args) => globalThis.fetch(...args) : createNodeFetch();
 const Headers$1 = globalThis.Headers || s;
 const AbortController = globalThis.AbortController || i;
-const ofetch = createFetch$1({ fetch, Headers: Headers$1, AbortController });
-const $fetch = ofetch;
+createFetch$1({ fetch, Headers: Headers$1, AbortController });
 
 const nullBodyResponses = /* @__PURE__ */ new Set([101, 204, 205, 304]);
 function createCall(handle) {
@@ -3943,138 +3908,138 @@ const assets$1 = {
     "size": 1,
     "path": "../public/robots.txt"
   },
-  "/_nuxt/B2UYyn2a.js": {
+  "/_nuxt/BAcxjzER.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"87bf-Go8sobgCCDYqw/qv+ik77RvBs54\"",
-    "mtime": "2024-11-10T22:47:05.664Z",
-    "size": 34751,
-    "path": "../public/_nuxt/B2UYyn2a.js"
+    "etag": "\"3533e-XcwTJ4jHuiRpPd462i6diIzIVoc\"",
+    "mtime": "2024-11-10T23:04:02.541Z",
+    "size": 217918,
+    "path": "../public/_nuxt/BAcxjzER.js"
   },
-  "/_nuxt/BUkaK63F.js": {
+  "/_nuxt/BrRfhBA1.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"243a-CxsJuAkBPzLEK1KHfbymIwmstrY\"",
-    "mtime": "2024-11-10T22:47:05.681Z",
-    "size": 9274,
-    "path": "../public/_nuxt/BUkaK63F.js"
-  },
-  "/_nuxt/BXHNotEl.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"180-hTWaS5gCOvjzJii25llNxHycfe0\"",
-    "mtime": "2024-11-10T22:47:05.681Z",
-    "size": 384,
-    "path": "../public/_nuxt/BXHNotEl.js"
-  },
-  "/_nuxt/CyUlsrT7.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"d52-q7w1oew1F2kp+FWvRtQT6LW4J1Q\"",
-    "mtime": "2024-11-10T22:47:05.681Z",
+    "etag": "\"d52-f0TpjolPMqZ/t0k4eaESE+LwB88\"",
+    "mtime": "2024-11-10T23:04:02.541Z",
     "size": 3410,
-    "path": "../public/_nuxt/CyUlsrT7.js"
+    "path": "../public/_nuxt/BrRfhBA1.js"
   },
-  "/_nuxt/DwKFxqtK.js": {
+  "/_nuxt/BzdmrIQw.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"c906-uLEdTFOkxlt7GHvvuCgn121wOaE\"",
-    "mtime": "2024-11-10T22:47:05.681Z",
-    "size": 51462,
-    "path": "../public/_nuxt/DwKFxqtK.js"
+    "etag": "\"180-Uko3uXvQtIUpM7r1Xr14uG3uACM\"",
+    "mtime": "2024-11-10T23:04:02.541Z",
+    "size": 384,
+    "path": "../public/_nuxt/BzdmrIQw.js"
   },
-  "/_nuxt/entry.D1-2ZtZ7.css": {
+  "/_nuxt/CC9QizXk.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"87bf-VCmzgs7Mesvfos0NeB7FdpioTV0\"",
+    "mtime": "2024-11-10T23:04:02.541Z",
+    "size": 34751,
+    "path": "../public/_nuxt/CC9QizXk.js"
+  },
+  "/_nuxt/Cy_QSIT_.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"4193-zRJjTOhUVFj7WWZi5mCzL1aVwtw\"",
+    "mtime": "2024-11-10T23:04:02.541Z",
+    "size": 16787,
+    "path": "../public/_nuxt/Cy_QSIT_.js"
+  },
+  "/_nuxt/D7VU7Gqa.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"243a-QlLiPd+URegKdopu95C1phesfXM\"",
+    "mtime": "2024-11-10T23:04:02.541Z",
+    "size": 9274,
+    "path": "../public/_nuxt/D7VU7Gqa.js"
+  },
+  "/_nuxt/DrLkpG9l.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"c906-FX5gVjmlOzNg6XB93tIz9bKflco\"",
+    "mtime": "2024-11-10T23:04:02.541Z",
+    "size": 51462,
+    "path": "../public/_nuxt/DrLkpG9l.js"
+  },
+  "/_nuxt/entry.BKsbo580.css": {
     "type": "text/css; charset=utf-8",
-    "etag": "\"8b3ac-PNiVvSRIP1EAbb2ta8lA9qAXqD8\"",
-    "mtime": "2024-11-10T22:47:05.681Z",
-    "size": 570284,
-    "path": "../public/_nuxt/entry.D1-2ZtZ7.css"
+    "etag": "\"8cc51-u0onpln1hQnBPRWVBIkFZC3jKq8\"",
+    "mtime": "2024-11-10T23:04:02.541Z",
+    "size": 576593,
+    "path": "../public/_nuxt/entry.BKsbo580.css"
   },
   "/_nuxt/error-404.CoZKRZXM.css": {
     "type": "text/css; charset=utf-8",
     "etag": "\"de4-4evKWTXkUTbWWn6byp5XsW9Tgo8\"",
-    "mtime": "2024-11-10T22:47:05.681Z",
+    "mtime": "2024-11-10T23:04:02.539Z",
     "size": 3556,
     "path": "../public/_nuxt/error-404.CoZKRZXM.css"
   },
   "/_nuxt/error-500.D6506J9O.css": {
     "type": "text/css; charset=utf-8",
     "etag": "\"75c-tP5N9FT3eOu7fn6vCvyZRfUcniY\"",
-    "mtime": "2024-11-10T22:47:05.681Z",
+    "mtime": "2024-11-10T23:04:02.539Z",
     "size": 1884,
     "path": "../public/_nuxt/error-500.D6506J9O.css"
   },
   "/_nuxt/index.Dx_DYGIY.css": {
     "type": "text/css; charset=utf-8",
     "etag": "\"8d3b-Azwkuq5m6n0NgF+wf+gr7l6pqwY\"",
-    "mtime": "2024-11-10T22:47:05.681Z",
+    "mtime": "2024-11-10T23:04:02.541Z",
     "size": 36155,
     "path": "../public/_nuxt/index.Dx_DYGIY.css"
   },
   "/_nuxt/materialdesignicons-webfont.B7mPwVP_.ttf": {
     "type": "font/ttf",
     "etag": "\"13f40c-T1Gk3HWmjT5XMhxEjv3eojyKnbA\"",
-    "mtime": "2024-11-10T22:47:05.681Z",
+    "mtime": "2024-11-10T23:04:02.541Z",
     "size": 1307660,
     "path": "../public/_nuxt/materialdesignicons-webfont.B7mPwVP_.ttf"
   },
   "/_nuxt/materialdesignicons-webfont.CSr8KVlo.eot": {
     "type": "application/vnd.ms-fontobject",
     "etag": "\"13f4e8-ApygSKV9BTQg/POr5dCUzjU5OZw\"",
-    "mtime": "2024-11-10T22:47:05.681Z",
+    "mtime": "2024-11-10T23:04:02.541Z",
     "size": 1307880,
     "path": "../public/_nuxt/materialdesignicons-webfont.CSr8KVlo.eot"
   },
   "/_nuxt/materialdesignicons-webfont.Dp5v-WZN.woff2": {
     "type": "font/woff2",
     "etag": "\"62710-TiD2zPQxmd6lyFsjoODwuoH/7iY\"",
-    "mtime": "2024-11-10T22:47:05.681Z",
+    "mtime": "2024-11-10T23:04:02.539Z",
     "size": 403216,
     "path": "../public/_nuxt/materialdesignicons-webfont.Dp5v-WZN.woff2"
   },
   "/_nuxt/materialdesignicons-webfont.PXm3-2wK.woff": {
     "type": "font/woff",
     "etag": "\"8f8d0-zD3UavWtb7zNpwtFPVWUs57NasQ\"",
-    "mtime": "2024-11-10T22:47:05.681Z",
+    "mtime": "2024-11-10T23:04:02.539Z",
     "size": 587984,
     "path": "../public/_nuxt/materialdesignicons-webfont.PXm3-2wK.woff"
-  },
-  "/_nuxt/MBoBkL8E.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"4193-Bp9AVjZTYzYUc6+c4Rt7OA0WpZY\"",
-    "mtime": "2024-11-10T22:47:05.664Z",
-    "size": 16787,
-    "path": "../public/_nuxt/MBoBkL8E.js"
   },
   "/_nuxt/summary.CsT52Cw_.css": {
     "type": "text/css; charset=utf-8",
     "etag": "\"270a-oPfPfh1Fe4DDqeuXnr2mQpxRNUU\"",
-    "mtime": "2024-11-10T22:47:05.681Z",
+    "mtime": "2024-11-10T23:04:02.541Z",
     "size": 9994,
     "path": "../public/_nuxt/summary.CsT52Cw_.css"
-  },
-  "/_nuxt/umuYlHlm.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"3533e-Q/ABKOuvhfAisqXyqjzLjEGtwrs\"",
-    "mtime": "2024-11-10T22:47:05.681Z",
-    "size": 217918,
-    "path": "../public/_nuxt/umuYlHlm.js"
   },
   "/_nuxt/VContainer.DrECmhP5.css": {
     "type": "text/css; charset=utf-8",
     "etag": "\"6fce-0i+oKTxQU1BkiK7A2SXRsgwXy1I\"",
-    "mtime": "2024-11-10T22:47:05.681Z",
+    "mtime": "2024-11-10T23:04:02.541Z",
     "size": 28622,
     "path": "../public/_nuxt/VContainer.DrECmhP5.css"
   },
   "/_nuxt/builds/latest.json": {
     "type": "application/json",
-    "etag": "\"47-wx2hQNs/ePyGjD1EVmzxAjK0jR8\"",
-    "mtime": "2024-11-10T22:47:13.072Z",
+    "etag": "\"47-IotY/MrXXSokPK5NpeKiRgIZ7k4\"",
+    "mtime": "2024-11-10T23:04:02.641Z",
     "size": 71,
     "path": "../public/_nuxt/builds/latest.json"
   },
-  "/_nuxt/builds/meta/6dea58ad-ab1a-4b2b-ae87-cd3f86cbb6e3.json": {
+  "/_nuxt/builds/meta/dbf9cb5b-40e2-4250-8d85-e46f741dcd89.json": {
     "type": "application/json",
-    "etag": "\"8b-hoRaaXrwisbkTLyc6uVIMDu9IXs\"",
-    "mtime": "2024-11-10T22:47:13.073Z",
+    "etag": "\"8b-JaIy7ewIap1EsPkhVi4gOoGXvBk\"",
+    "mtime": "2024-11-10T23:04:02.641Z",
     "size": 139,
-    "path": "../public/_nuxt/builds/meta/6dea58ad-ab1a-4b2b-ae87-cd3f86cbb6e3.json"
+    "path": "../public/_nuxt/builds/meta/dbf9cb5b-40e2-4250-8d85-e46f741dcd89.json"
   }
 };
 
@@ -4271,7 +4236,7 @@ const _sMj2Tf = eventHandler((event) => {
   return readAsset(id);
 });
 
-const _lazy_bxeIyK = () => import('../routes/renderer.mjs').then(function (n) { return n.r; });
+const _lazy_bxeIyK = () => import('../routes/renderer.mjs');
 
 const handlers = [
   { route: '', handler: _sMj2Tf, lazy: false, middleware: true, method: undefined },
@@ -5374,7 +5339,7 @@ function _expandFromEnv(value) {
 const _inlineRuntimeConfig = {
   "app": {
     "baseURL": "/",
-    "buildId": "6dea58ad-ab1a-4b2b-ae87-cd3f86cbb6e3",
+    "buildId": "dbf9cb5b-40e2-4250-8d85-e46f741dcd89",
     "buildAssetsDir": "/_nuxt/",
     "cdnURL": ""
   },
@@ -5446,103 +5411,6 @@ new Proxy(/* @__PURE__ */ Object.create(null), {
     return void 0;
   }
 });
-
-function createContext(opts = {}) {
-  let currentInstance;
-  let isSingleton = false;
-  const checkConflict = (instance) => {
-    if (currentInstance && currentInstance !== instance) {
-      throw new Error("Context conflict");
-    }
-  };
-  let als;
-  if (opts.asyncContext) {
-    const _AsyncLocalStorage = opts.AsyncLocalStorage || globalThis.AsyncLocalStorage;
-    if (_AsyncLocalStorage) {
-      als = new _AsyncLocalStorage();
-    } else {
-      console.warn("[unctx] `AsyncLocalStorage` is not provided.");
-    }
-  }
-  const _getCurrentInstance = () => {
-    if (als && currentInstance === void 0) {
-      const instance = als.getStore();
-      if (instance !== void 0) {
-        return instance;
-      }
-    }
-    return currentInstance;
-  };
-  return {
-    use: () => {
-      const _instance = _getCurrentInstance();
-      if (_instance === void 0) {
-        throw new Error("Context is not available");
-      }
-      return _instance;
-    },
-    tryUse: () => {
-      return _getCurrentInstance();
-    },
-    set: (instance, replace) => {
-      if (!replace) {
-        checkConflict(instance);
-      }
-      currentInstance = instance;
-      isSingleton = true;
-    },
-    unset: () => {
-      currentInstance = void 0;
-      isSingleton = false;
-    },
-    call: (instance, callback) => {
-      checkConflict(instance);
-      currentInstance = instance;
-      try {
-        return als ? als.run(instance, callback) : callback();
-      } finally {
-        if (!isSingleton) {
-          currentInstance = void 0;
-        }
-      }
-    },
-    async callAsync(instance, callback) {
-      currentInstance = instance;
-      const onRestore = () => {
-        currentInstance = instance;
-      };
-      const onLeave = () => currentInstance === instance ? onRestore : void 0;
-      asyncHandlers.add(onLeave);
-      try {
-        const r = als ? als.run(instance, callback) : callback();
-        if (!isSingleton) {
-          currentInstance = void 0;
-        }
-        return await r;
-      } finally {
-        asyncHandlers.delete(onLeave);
-      }
-    }
-  };
-}
-function createNamespace(defaultOpts = {}) {
-  const contexts = {};
-  return {
-    get(key, opts = {}) {
-      if (!contexts[key]) {
-        contexts[key] = createContext({ ...defaultOpts, ...opts });
-      }
-      contexts[key];
-      return contexts[key];
-    }
-  };
-}
-const _globalThis = typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : typeof global !== "undefined" ? global : {};
-const globalKey = "__unctx__";
-const defaultNamespace = _globalThis[globalKey] || (_globalThis[globalKey] = createNamespace());
-const getContext = (key, opts = {}) => defaultNamespace.get(key, opts);
-const asyncHandlersKey = "__unctx_async_handlers__";
-const asyncHandlers = _globalThis[asyncHandlersKey] || (_globalThis[asyncHandlersKey] = /* @__PURE__ */ new Set());
 
 const config = useRuntimeConfig();
 const _routeRulesMatcher = toRouteMatcher(
@@ -5992,5 +5860,5 @@ function setupGracefulShutdown(listener, nitroApp) {
   });
 }
 
-export { $fetch as $, trapUnhandledNodeErrors as a, useNitroApp as b, defineRenderHandler as c, destr as d, createError as e, getRouteRules as f, getQuery as g, getResponseStatus as h, getResponseStatusText as i, joinRelativeURL as j, hasProtocol as k, isScriptProtocol as l, joinURL as m, defu as n, sanitizeStatusCode as o, getContext as p, createHooks as q, toRouteMatcher as r, setupGracefulShutdown as s, toNodeListener as t, useRuntimeConfig as u, createRouter$1 as v, withQuery as w, parseQuery as x, withTrailingSlash as y, withoutTrailingSlash as z };
+export { trapUnhandledNodeErrors as a, useNitroApp as b, defineRenderHandler as c, destr as d, createError as e, getRouteRules as f, getQuery as g, getResponseStatus as h, getResponseStatusText as i, joinRelativeURL as j, setupGracefulShutdown as s, toNodeListener as t, useRuntimeConfig as u };
 //# sourceMappingURL=nitro.mjs.map
