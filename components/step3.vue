@@ -44,10 +44,10 @@ const rules = {
     ></v-checkbox>
 
     <div class="flex justify-between">
-      <v-btn @click="goBack" color="secondary">Back</v-btn>
-      <v-btn @click="clearStep" color="secondary">Clear</v-btn>
+      <v-btn @click="goBack" color="secondary">Zpět</v-btn>
+      <v-btn @click="clearStep" color="secondary">Vymazat</v-btn>
       <v-btn @click="sendDataToForm" :disabled="!isFormValid" color="primary"
-        >Send</v-btn
+        >Poslat</v-btn
       >
     </div>
   </v-form>
