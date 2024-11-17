@@ -1,13 +1,16 @@
 ### Invest Form
 
-This is test project to display invest form questionnaire
+This is test project to display invest form questionnaire.
+Form is multi-step, contains validation and basic data sanitizing.
 
-Project sends data to 'https://jsonplaceholder.typicode.com/posts' and is created with
+Entered data are sent to mockup API 'https://jsonplaceholder.typicode.com/posts'.
 
-- Nuxt
+Project created with the following stack:
+
+- Nuxt with typescript
 - Vite
-- Vuetify
-- Pinia
+- Vuetify components
+- Pinia store
 - Tailwind CSS
 
 To run this project locally:
