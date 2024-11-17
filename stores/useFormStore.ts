@@ -47,5 +47,8 @@ export const useFormStore = defineStore('form', {
         (this as Record<keyof FormState, any>)[fieldName] = defaultValue;
       });
     },
+    getDataObject(): Partial<FormState> {
+      return { ...this.$state };
+    },
   },
 });

@@ -1,18 +1,31 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useFormStore } from '@/stores/useFormStore';
-import { useSendData } from '@/composables/useSendData';
+// import { useSendData } from '@/composables/useSendData';
+const formStore = useFormStore(); // Get the store instance
+const router = useRouter(); // Get the router instance
 
-const { sendData } = useSendData();
-const formStore = useFormStore();
+// const { sendData } = useSendData();
 const isFormValid = ref(false);
-const props = defineProps({
-  goNext: Function,
-  goBack: Function,
-});
-function sendDataToForm() {
-  sendData();
+// const props = defineProps({
+//   goNext: Function,
+//   goBack: Function,
+// });
+const props = defineProps<{
+  goNext: () => void;
+  goBack: () => void;
+}>();
+// function sendDataToForm() {
+//   sendData();
+// }
+
+function goSummary() {
+  router.push({
+    path: '/summary',
+    query: { data: JSON.stringify(formStore.getDataObject()) },
+  });
 }
+
 function clearStep() {
   formStore.resetFields(['address', 'bankAccountNumber', 'consent']);
 }
@@ -44,11 +57,16 @@ const rules = {
     ></v-checkbox>
 
     <div class="flex justify-between">
-      <v-btn @click="goBack" color="secondary">Back</v-btn>
-      <v-btn @click="clearStep" color="secondary">Clear</v-btn>
-      <v-btn @click="sendDataToForm" :disabled="!isFormValid" color="primary"
-        >Send</v-btn
-      >
+      <!-- <v-btn @click="goBack" color="secondary">Back</v-btn>
+      <v-btn @click="clearStep" color="secondary">Clear</v-btn> -->
+
+      <!-- <v-btn @click="sendDataToForm" :disabled="!isFormValid" color="primary"
+        >Send</v-btn> -->
+      <v-btn @click="goBack" color="secondary">Zpět</v-btn>
+      <v-btn @click="clearStep" color="secondary">Vymazat</v-btn>
+      <v-btn @click="goSummary" :disabled="!isFormValid" color="primary">
+        Další
+      </v-btn>
     </div>
   </v-form>
 </template>

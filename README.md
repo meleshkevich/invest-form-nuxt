@@ -8,6 +8,7 @@ Project sends data to 'https://jsonplaceholder.typicode.com/posts' and is create
 - Vite
 - Vuetify
 - Pinia
+- Tailwind CSS
 
 To run this project locally:
 

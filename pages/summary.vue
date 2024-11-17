@@ -2,6 +2,7 @@
 import { ref, onBeforeMount } from 'vue';
 import { useRoute } from 'vue-router';
 import { useFormStore } from '@/stores/useFormStore';
+import { useSendData } from '@/composables/useSendData';
 
 interface FormData {
   investmentAmount?: number;
@@ -20,6 +21,7 @@ interface FormData {
 const data = ref<FormData>({});
 const formStore = useFormStore();
 const router = useRouter();
+const { sendData, toastMessage, showToast } = useSendData();
 
 onBeforeMount(() => {
   const route = useRoute();
@@ -33,7 +35,12 @@ onBeforeMount(() => {
   }
 });
 
-function handleClick() {
+function sendDataToForm() {
+  sendData();
+}
+
+function handleToastClose() {
+  showToast.value = false;
   router.back();
   formStore.clear();
 }
@@ -99,12 +106,22 @@ function handleClick() {
             </v-row>
             <div class="flex justify-center items-center mb-4">
               <v-btn
-                @click="handleClick"
+                @click="sendDataToForm"
                 color="primary"
                 class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
               >
-                OK, jdeme na hlávní stránku
+                OK, mužeme odeslat
               </v-btn>
+
+              <v-snackbar v-model="showToast">
+                {{ toastMessage }}
+
+                <template v-slot:actions>
+                  <v-btn color="pink" variant="text" @click="handleToastClose">
+                    Zavřít a na hlávní stránku
+                  </v-btn>
+                </template>
+              </v-snackbar>
             </div>
           </v-card>
         </div>

@@ -7,6 +7,7 @@ import step3 from '@/components/step3.vue';
 const steps = [step1, step2, step3] as const;
 const currentStep = ref<number>(0);
 const currentStepComponent = computed(() => steps[currentStep.value]);
+const { sendData, toastMessage, showToast } = useSendData();
 
 function goNext(): void {
   if (currentStep.value < steps.length - 1) currentStep.value++;
@@ -37,6 +38,9 @@ function goBack(): void {
             :goNext="goNext"
             :goBack="goBack"
           />
+          <v-snackbar v-model="showToast" timeout="3000">
+            {{ toastMessage }}
+          </v-snackbar>
         </div>
       </v-container>
     </v-app>

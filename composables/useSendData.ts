@@ -1,9 +1,10 @@
 import { useFormStore } from '@/stores/useFormStore';
-import { useRouter } from 'vue-router';
+import { ref } from 'vue';
 
 export function useSendData() {
   const formStore = useFormStore();
-  const router = useRouter();
+  const toastMessage = ref('');
+  const showToast = ref(false);
 
   async function sendData(): Promise<void> {
     try {
@@ -24,13 +25,15 @@ export function useSendData() {
 
       const json = await response.json();
 
+      //to check response from test api
       console.log('Response Data:', json);
 
-      router.push({ path: '/summary', query: { data: JSON.stringify(json) } });
+      toastMessage.value = 'Data byla úspěšně odeslána!';
+      showToast.value = true;
     } catch (error) {
       console.error('Error sending data:', error);
     }
   }
 
-  return { sendData };
+  return { sendData, toastMessage, showToast };
 }
